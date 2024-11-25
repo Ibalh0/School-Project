@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carnet - Digital Solutions</title>
+    <style>
+        :root {
+            --primary: #2DD4BF;
+            --secondary: #0F172A;
+            --dark: #0F172A;
+            --card-bg: #1E293B;
+            --text: #E2E8F0;
+            --accent: #38BDF8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            background-color: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 0;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)),
+                        url('https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: #94A3B8;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: var(--dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(45, 212, 191, 0.2);
+        }
+
+        .services, .pricing {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+
+        .services-grid, .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card, .pricing-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .service-card:hover, .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card {
+            text-align: center;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: #94A3B8;
+        }
+
+        .features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .features li {
+            padding: 0.5rem 0;
+            color: #94A3B8;
+        }
+
+        .features li::before {
+            content: "✓";
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .services-grid, .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .page-section {
+            padding: 80px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .portfolio-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .work-with-us {
+            background: linear-gradient(to right, rgba(45, 212, 191, 0.1), rgba(56, 189, 248, 0.1));
+            padding: 4rem 0;
+        }
+
+        .job-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .document-preview {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .document-preview i {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: var(--primary);
+        }
+
+        .document-preview {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .document-preview:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .document-preview img {
+            transition: transform 0.3s ease;
+        }
+
+        .document-preview:hover img {
+            transform: scale(1.05);
+        }
+
+        .job-requirements {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .job-requirements li {
+            padding: 0.5rem 0;
+            color: #94A3B8;
+        }
+
+        .job-requirements li::before {
+            content: "✓";
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        .before-after-samples {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .before-after-samples img {
+            width: 48%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .studio-images {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .studio-images img {
+            width: 48%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">Carnet</div>
+            <div class="nav-links">
+                <a href="#services">Services</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Professional Digital Solutions</h1>
+                <p>Your one-stop destination for device repairs, photo editing, and audio engineering.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&q=80" 
+                         alt="Laptop Repair"
+                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                    <i class="fas fa-laptop"></i>
+                    <h3>Device Repair</h3>
+                    <p>Expert repair services for all your devices</p>
+                </div>
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80" 
+                         alt="Photo Editing"
+                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                    <i class="fas fa-camera"></i>
+                    <h3>Photo Editing</h3>
+                    <p>Professional photo enhancement services</p>
+                </div>
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1520692852352-14eb528f81e6?auto=format&fit=crop&q=80" 
+                         alt="Audio Engineering"
+                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                    <i class="fas fa-music"></i>
+                    <h3>Audio Engineering</h3>
+                    <p>Expert audio production and mixing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Pricing Plans</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Basic Repair</h3>
+                    <div class="price">$49<span>/service</span></div>
+                    <ul class="features">
+                        <li>Screen Repairs</li>
+                        <li>Battery Replacement</li>
+                        <li>Diagnostic Service</li>
+                        <li>30-Day Warranty</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Photo Editing</h3>
+                    <div class="price">$29<span>/photo</span></div>
+                    <ul class="features">
+                        <li>Color Correction</li>
+                        <li>Retouching</li>
+                        <li>Background Removal</li>
+                        <li>Unlimited Revisions</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Audio Services</h3>
+                    <div class="price">$99<span>/hour</span></div>
+                    <ul class="features">
+                        <li>Professional Mixing</li>
+                        <li>Mastering</li>
+                        <li>Noise Reduction</li>
+                        <li>2 Revisions</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="documents">
+        <div class="container">
+            <h2 class="section-title">Document Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="document-preview">
+                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80" 
+                         alt="Financial Calculator Excel"
+                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                    <i class="fas fa-file-excel"></i>
+                    <h3>Financial Calculator</h3>
+                    <p>Advanced Excel spreadsheet with ROI calculations, profit margins, and financial projections</p>
+                </div>
+                <div class="document-preview">
+                    <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&q=80" 
+                         alt="Excel Dashboard"
+                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Business Analytics Dashboard</h3>
+                    <p>Interactive Excel dashboard with data visualization and metrics tracking</p>
+                </div>
+                <div class="document-preview">
+                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80" 
+                         alt="Corporate Presentation"
+                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                    <i class="fas fa-file-powerpoint"></i>
+                    <h3>Corporate Presentation</h3>
+                    <p>Professional PowerPoint template with modern design and animations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="portfolio">
+        <div class="container">
+            <h2 class="section-title">Photo & Audio Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&q=80" 
+                         alt="Phone Repair">
+                    <div class="portfolio-content">
+                        <h3>Device Repair</h3>
+                        <p>Professional phone and laptop repairs</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80" 
+                         alt="Photo Editing">
+                    <div class="portfolio-content">
+                        <h3>Photo Enhancement</h3>
+                        <p>Professional photo retouching</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80" 
+                         alt="Audio Studio">
+                    <div class="portfolio-content">
+                        <h3>Audio Production</h3>
+                        <p>Professional sound engineering</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="coding">
+        <div class="container">
+            <h2 class="section-title">Coding Projects</h2>
+            <div class="portfolio-grid">
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80" 
+                         alt="Web Development"
+                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                    <i class="fas fa-code"></i>
+                    <h3>Web Development</h3>
+                    <p>Custom website solutions</p>
+                </div>
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?auto=format&fit=crop&q=80" 
+                         alt="App Development"
+                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>App Development</h3>
+                    <p>Mobile application development</p>
+                </div>
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&q=80" 
+                         alt="Database Design"
+                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                    <i class="fas fa-database"></i>
+                    <h3>Database Design</h3>
+                    <p>Custom database solutions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="work-with-us" id="careers">
+        <div class="container">
+            <h2 class="section-title">Work With Us</h2>
+            <div class="job-card">
+                <img src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&q=80" 
+                     alt="Tech Work"
+                     style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                <h3>Digital Repair Technician</h3>
+                <p>Join our expert repair team</p>
+                <a href="#" class="btn btn-primary">Apply Now</a>
+            </div>
+            <div class="job-card">
+                <img src="https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&q=80" 
+                     alt="Photo Editing Studio"
+                     style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                <h3>Photo Editor</h3>
+                <p>Looking for experienced photo editors to join our creative team</p>
+                <ul class="job-requirements">
+                    <li><i class="fas fa-check"></i> Experience with Adobe Creative Suite</li>
+                    <li><i class="fas fa-check"></i> Portfolio of retouching work</li>
+                    <li><i class="fas fa-check"></i> Understanding of color theory</li>
+                    <li><i class="fas fa-check"></i> Attention to detail</li>
+                </ul>
+                <div class="before-after-samples">
+                    <img src="https://images.unsplash.com/photo-1520483601560-389dff434fdf?auto=format&fit=crop&q=80" 
+                         alt="Photo Editing Before"
+                         style="width: 48%; height: 150px; object-fit: cover; border-radius: 8px;">
+                    <img src="https://images.unsplash.com/photo-1520483601560-389dff434fdf?auto=format&fit=crop&q=80&sat=2" 
+                         alt="Photo Editing After"
+                         style="width: 48%; height: 150px; object-fit: cover; border-radius: 8px;">
+                </div>
+                <a href="#" class="btn btn-primary">Apply Now</a>
+            </div>
+            <div class="job-card">
+                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80" 
+                     alt="Recording Studio"
+                     style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                <h3>Audio Engineer</h3>
+                <p>Join our professional audio production team</p>
+                <ul class="job-requirements">
+                    <li><i class="fas fa-check"></i> Experience with Pro Tools/Logic Pro</li>
+                    <li><i class="fas fa-check"></i> Understanding of audio processing</li>
+                    <li><i class="fas fa-check"></i> Music production background</li>
+                    <li><i class="fas fa-check"></i> Portfolio of mixed tracks</li>
+                </ul>
+                <div class="studio-images">
+                    <img src="https://images.unsplash.com/photo-1519683109079-d5f539e1542f?auto=format&fit=crop&q=80" 
+                         alt="Mixing Console"
+                         style="width: 48%; height: 150px; object-fit: cover; border-radius: 8px;">
+                    <img src="https://images.unsplash.com/photo-1598395927056-8d895e701c3b?auto=format&fit=crop&q=80" 
+                         alt="Recording Equipment"
+                         style="width: 48%; height: 150px; object-fit: cover; border-radius: 8px;">
+                </div>
+                <a href="#" class="btn btn-primary">Apply Now</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="logo">Carnet</div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>&copy; 2024 Carnet. All rights reserved.</p>
+            <p>Contact: info@carnet.com | Tel: (555) 123-4567</p>
+            <p>Last updated: <script>document.write(new Date().toLocaleDateString())</script></p>
+        </div>
+    </footer>
+</body>
+</html>
